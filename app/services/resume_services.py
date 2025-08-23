@@ -11,6 +11,8 @@ def improve_resume_with_gemini(data: Union[ResumeData, dict]) -> ResumeData:
     prompt = f"""
     You are a professional resume writer.
     The user will provide resume data in JSON format.
+    - input Format would be like : {ResumeData}
+      -output Format would be Like : {ResumeData}
     Your job:
     - Improve ONLY:
         - personalInfo.summary
@@ -20,9 +22,9 @@ def improve_resume_with_gemini(data: Union[ResumeData, dict]) -> ResumeData:
         - Dates, numbers, boolean values, levels, or structure
     - Return the result in EXACTLY the same JSON format as received.
     - Keep the same keys, types, and nested array structure.
-
-    Resume JSON:
-    {resume_json_str}
+    - keep the format stricly as provided in output format.
+    - Ensure the output is valid JSON.
+    Here is the resume data to improve:
     """
     response = model.generate_content(prompt)
     if not response or not response.text:
